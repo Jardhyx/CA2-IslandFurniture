@@ -52,6 +52,10 @@
             }).then(function (furniture) {
                 //set furniture details
                 document.getElementById("imgFurniture").setAttribute('src', furniture.imageURL);
+                //added the name, description and price details
+                document.getElementById("furnitureName").innerText = furniture.name;
+                document.getElementById("description").innerText = furniture.description;
+                document.getElementById("price").innerText = '$' + furniture.price.toFixed(2);
 
                 if (memberEmail != null && memberEmail != '') {
                     document.getElementById("addToCartBtn").innerHTML =
@@ -66,6 +70,12 @@
                 document.getElementById("categoryLink").innerHTML = furniture.category;
                 document.getElementById("categoryLink").setAttribute('href', '/B/' + countryPrefix
                     + '/furnitureCategory.html?cat=' + encodeURIComponent(furniture.category));
+                //added dimensions of the furniture
+                document.getElementById("furnitureInfo").innerHTML = '\
+                                        <div>Height: ' + furniture.height + '</div>\
+                                        <div>Length: ' + furniture.length + '</div>\
+                                        <div>Width: ' + furniture.width + '</div>\
+                                        ';
 
                 initializeFavouriteHearts();
 
