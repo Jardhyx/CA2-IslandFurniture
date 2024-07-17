@@ -58,6 +58,7 @@
     var countryPrefix = localStorage.getItem('urlPrefix');
     //get token from session
     authToken = sessionStorage.getItem('token');
+    var memberEmail = sessionStorage.getItem('memberEmail');
     if (authToken == null || authToken == "") {
         window.location.href = '/B/' + countryPrefix + '/memberLogin.html';
     }
@@ -80,7 +81,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         initializeFavouriteHearts();
 
-        var favourites = JSON.parse(localStorage.getItem('favourites')) || {};
+        var favourites = JSON.parse(localStorage.getItem('favourites-' + memberEmail)) || {};
         var favouritesList = document.getElementById('favouritesList');
         var favouritesMessage = document.getElementById('favouritesMessage');
 

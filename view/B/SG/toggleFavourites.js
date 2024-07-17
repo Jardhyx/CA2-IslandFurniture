@@ -4,7 +4,8 @@ function toggleFavourites(sku, id, price, name, imageURL) {
         var memberEmail = sessionStorage.getItem('memberEmail');
         if (memberEmail != null && memberEmail != '') {
             var heartIcon = document.getElementById('heart-' + sku);
-            var favourites = JSON.parse(localStorage.getItem('favourites')) || {};
+            var favouritesKey = 'favourites-' + memberEmail; // Sets a unique key for each user
+            var favourites = JSON.parse(localStorage.getItem(favouritesKey)) || {};
 
             if (heartIcon && heartIcon.classList.contains('filled-heart')) {
                 // Unfill the heart and remove from favourites
@@ -25,8 +26,8 @@ function toggleFavourites(sku, id, price, name, imageURL) {
                 }
             }
 
-            // Update localStorage
-            localStorage.setItem('favourites', JSON.stringify(favourites));
+            // Update localStorage for this user
+            localStorage.setItem(favouritesKey, JSON.stringify(favourites));
             window.location.reload();
         } else {
             alert('Please login to add to favourites.');
@@ -37,14 +38,18 @@ function toggleFavourites(sku, id, price, name, imageURL) {
     }
 }
 
-// Set the initial state of hearts based on localStorage
+// Set the initial state of hearts based on localStorage for this user
 function initializeFavouriteHearts() {
-    var favourites = JSON.parse(localStorage.getItem('favourites')) || {};
-    for (var sku in favourites) {
-        var heartIcon = document.getElementById('heart-' + sku);
-        if (heartIcon) {
-            heartIcon.classList.add('filled-heart', 'fas');
-            heartIcon.classList.remove('far');
+    var memberEmail = sessionStorage.getItem('memberEmail');
+    if (memberEmail != null && memberEmail != '') {
+        var favouritesKey = 'favourites-' + memberEmail; // Unique key for each user
+        var favourites = JSON.parse(localStorage.getItem(favouritesKey)) || {};
+        for (var sku in favourites) {
+            var heartIcon = document.getElementById('heart-' + sku);
+            if (heartIcon) {
+                heartIcon.classList.add('filled-heart', 'fas');
+                heartIcon.classList.remove('far');
+            }
         }
     }
 }
