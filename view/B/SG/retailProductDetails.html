@@ -43,6 +43,10 @@
             }).then(function (product) {
                 //set retail product details
                 document.getElementById("productImg").setAttribute('src', product.imageURL);
+                //added retail product name, description and dimensions
+                document.getElementById("productName").innerText = product.name;
+                document.getElementById("productDesc").innerText = product.description;
+                document.getElementById("productPrice").innerText = '$' + product.price.toFixed(2);
 
                 if (memberEmail != null && memberEmail != '') {
                     document.getElementById("heartBtn").innerHTML =
