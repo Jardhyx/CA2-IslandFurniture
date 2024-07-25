@@ -202,6 +202,10 @@
             var ok = true;
             console.log(oldPassword)
             if (document.getElementById("profileForm").checkValidity()) {
+                if (password == "" || repassword == "") {
+                    alert("New password value cannot be empty.");
+                    ok = false;
+                }
                 if (oldPassword != "" && password != "" && repassword != "") {
                     var memberData = {
                         id: member.id,
